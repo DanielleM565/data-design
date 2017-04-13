@@ -13,33 +13,33 @@
 			</h1>
 			<h2>Profile</h2>
 			<ul>
-				<li>profileID</li> <!--primary key-->
+				<li>profileId</li> <!--primary key-->
 				<li>profileUSerName</li>
 				<li>profileEmail</li>
 				<li>profileActivationCode</li> <!--verify account-->
 				<li>profileAtHandle</li>
 				<li>profileSalt</li> <!--password-->
 				<li>profileHash</li> <!--password-->
-				<li>profileStorageFolders</li> <!-- organize liked photos-->
-				<li>profileShoppingCart</li>
 			</ul>
 			<h2>Products</h2>
 			<ul>
-				<li>productID</li> <!--primary key-->
-				<li>productIDprofileID</li> <!--foreign key-->
+				<li>productId</li> <!--primary key-->
+				<li>productIdprofileId</li> <!--foreign key-->
 				<li>productContent</li>
-				<li>productFolders</li>
+				<li>productPicture</li>
+				<li>productDescription</li>
+				<li>productTitle</li>
+				<li>productPrice</li>
 			</ul>
 			<h2>favorite</h2>
 			<ul>
-				<li>favoriteProductID</li>
-				<li>favoriteProfileID</li>
+				<li>favoriteProductId</li>
+				<li>favoriteProfileId</li>
 			</ul>
 				<h2>Relations</h2>
 			<ul>
-				<li>One profile can post many products 1 to n</li>
-				<li>Many profiles cna favorite many products m to n</li>
-				<li>Many photos can have many favorites m to n</li>
+				<li>Many profiles can favorite many products (m to n)</li>
+				<li>Many photos can have many favorites (m to n)</li>
 			</ul>
 		</main>
 	</body>
