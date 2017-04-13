@@ -11,7 +11,7 @@
 			<table>
 				<tr>
 					<th>Why</th>
-					<th>To share,favorite, buy and sell photos</th>
+					<th>To share,favorite, buy and sell unique goods</th>
 				</tr>
 				<tr>
 					<th>When</th>
@@ -30,13 +30,13 @@
 		<ul>
 			<li>A user chooses a user name for a profile</li>
 			<li>Site checks database for availability and sends confirmation</li>
-			<li>User receives ok go nad chooses password</li>
+			<li>User receives ok go and chooses password</li>
 			<li>Site uses a hash and salt on password</li> <!--Does not save password-->
 			<li>User generates a profile</li>
 			<li>Site stores profile information in database</li>
-			<li>user begins searching for photos</li>
+			<li>user begins searching for products</li>
 			<li>site redirects to product page</li>
-			<li>user favorites photo</li>
+			<li>user favorites product</li>
 			<li>site stores photoID with profileID as a favorite photo</li>
 		</ul>
 	</body>

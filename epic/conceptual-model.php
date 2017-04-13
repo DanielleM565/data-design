@@ -23,23 +23,23 @@
 				<li>profileStorageFolders</li> <!-- organize liked photos-->
 				<li>profileShoppingCart</li>
 			</ul>
-			<h2>Photos</h2>
+			<h2>Products</h2>
 			<ul>
-				<li>photoID</li> <!--primary key-->
-				<li>photoIDprofileID</li> <!--foreign key-->
-				<li>photoContent</li>
-				<li>photoFolders</li>
+				<li>productID</li> <!--primary key-->
+				<li>productIDprofileID</li> <!--foreign key-->
+				<li>productContent</li>
+				<li>productFolders</li>
 			</ul>
 			<h2>favorite</h2>
 			<ul>
-				<li>favoritePhotoID</li>
+				<li>favoriteProductID</li>
 				<li>favoriteProfileID</li>
 			</ul>
 				<h2>Relations</h2>
 			<ul>
-				<li>One profile can post many photos 1 to n</li>
-				<li>Many profiles cna favorite many photos m to n</li>
-				<li>Many photos cna have many favorites m to n</li>
+				<li>One profile can post many products 1 to n</li>
+				<li>Many profiles cna favorite many products m to n</li>
+				<li>Many photos can have many favorites m to n</li>
 			</ul>
 		</main>
 	</body>
