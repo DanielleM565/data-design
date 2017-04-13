@@ -26,8 +26,8 @@
 					<th>Any device, most often personal laptop computer</th>
 				</tr>
 			</table>
+			<h2>Interaction flow</h2>
 		<ul>
-			<h1>Interaction flow</h1>
 			<li></li>
 		</ul>
 	</body>
