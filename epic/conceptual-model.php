@@ -14,7 +14,7 @@
 			<h2>Profile</h2>
 			<ul>
 				<li>profileId</li> <!--primary key-->
-				<li>profileUSerName</li>
+				<li>profileUserName</li>
 				<li>profileEmail</li>
 				<li>profileActivationCode</li> <!--verify account-->
 				<li>profileAtHandle</li>
@@ -38,7 +38,6 @@
 				<h2>Relations</h2>
 			<ul>
 				<li>Many profiles can favorite many products (m to n)</li>
-				<li>Many products can be favored by many profile (m to n)</li>
 			</ul>
 		</main>
 	</body>

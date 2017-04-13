@@ -13,7 +13,7 @@
 		<ul>
 			<li>User logs into site with user name and password</li>
 			<li>Site retrieves hash and salt from database to confirm password and username match</li>
-			<li>User searches for product</li
+			<li>User searches for product</li>
 			<li>Site redirects user to products</li>
 			<li>User clicks favorite button on product</li>
 			<li>Site stores photo id with user's profile in favorites folder</li>
