@@ -7,9 +7,9 @@
 		</title>
 	</head>
 	<body>
-		<p>Etsy </p>
-			</table>
-			<h2>Interaction flow</h2>
+		<h2>Etsy </h2>
+			<p>Users choose Etsy to buy and sell unique goods </p>
+			<h3>Interaction flow</h3>
 		<ul>
 			<li>User logs into site with unser name and password</li>
 			<li>Site retrieves hash and salt from database to confirm password and username match</li>
