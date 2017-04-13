@@ -9,7 +9,7 @@
 	<body>
 		<main>
 			<h1>
-				Conceptual Model: Photo Lover
+				Conceptual Model: Etsy User
 			</h1>
 			<h2>Profile</h2>
 			<ul>
@@ -24,14 +24,13 @@
 			<h2>Products</h2>
 			<ul>
 				<li>productId</li> <!--primary key-->
-				<li>productIdprofileId</li> <!--foreign key-->
 				<li>productContent</li>
 				<li>productPicture</li>
 				<li>productDescription</li>
 				<li>productTitle</li>
 				<li>productPrice</li>
 			</ul>
-			<h2>favorite</h2>
+			<h2>Favorite</h2>
 			<ul>
 				<li>favoriteProductId</li>
 				<li>favoriteProfileId</li>
