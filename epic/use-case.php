@@ -11,20 +11,24 @@
 			<table>
 				<tr>
 					<th>Why</th>
-					<th></th>
+					<th>To share,favorite, buy and sell photos</th>
 				</tr>
 				<tr>
 					<th>When</th>
-					<th></th>
+					<th>Anytime, mostly use in the evenings</th>
 				</tr>
 				<tr>
 					<th>Where</th>
-					<th></th>
+					<th>Anywhere, most used at home, work and cafe's</th> <!--public and private internet connections-->
 				</tr>
 				<tr>
 					<th>How</th>
-					<th></th>
+					<th>Any device, most often personal laptop computer</th>
 				</tr>
 			</table>
+		<ul>
+			<h1>Interaction flow</h1>
+			<li></li>
+		</ul>
 	</body>
 </html>
