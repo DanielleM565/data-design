@@ -19,7 +19,7 @@
 			<h2>To Summarize:</h2>
 			<ul>
 				<li>As a Photo lover I want to favorite photos</li>
-				<li>As a Photo lover I want to promote myself as a photgrapher</li>
+				<li>As a Photo lover I want to promote myself as a photographer</li>
 				<li> As a user I was to buy prints of photos</li>
 			</ul>
 		</main>
