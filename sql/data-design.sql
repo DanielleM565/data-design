@@ -12,6 +12,7 @@ profileSalt CHAR (64) NOT NULL,
 UNIQUE(profileEmail),
 UNIQUE(profileAtHandle),
 
+
 PRIMARY KEY(profileId)
 
 );
