@@ -1,5 +1,7 @@
 mysql>
 DROP TABLE IF EXISTS 'favorite';
+DROP TABLE IF EXISTS product;
+DROP TABLE IF EXITS profile;
 
 CREATE TABLE profile (
 profileId INT UNSIGNED AUTO_INCREMENT NOT NULL,
