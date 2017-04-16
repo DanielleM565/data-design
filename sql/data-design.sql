@@ -16,3 +16,13 @@ UNIQUE(profileAtHandle),
 PRIMARY KEY(profileId)
 
 );
+
+CREATE TABLE product (
+
+	productId INT UNSIGNED AUTO_INCREMENT NOT NULL,
+	productContent VARCHAR(140) NOT NULL,
+	productDescription VARCHAR (320) NOT NULL,
+	productTitle VARCHAR(128) NOT NULL,
+	productPrice
+
+);
