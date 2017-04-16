@@ -23,6 +23,15 @@ CREATE TABLE product (
 	productContent VARCHAR(140) NOT NULL,
 	productDescription VARCHAR (320) NOT NULL,
 	productTitle VARCHAR(128) NOT NULL,
-	productPrice
+	productPrice,
+	/* not sure how to do a price */
+
+
+);
+
+CREATE TABLE favorite (
+
+	favoriteProductId,
+	favoriteProfileId,
 
 );
