@@ -8,7 +8,7 @@
 	</head>
 	<body>
 		<h2>Etsy </h2>
-			<p>Lucy (Photo_lover8) is browsing on her laptop on lunch break for a photo of coffee for home to hang obout the coffee make. She found a nice photo of a latte with a leaf drawn in the foam and hit the favorite button.Lucy wants to come back to it and later and wait until payday, friday, to think about buying it.</p>
+			<p>Lucy (Photo_lover8) is browsing on her laptop on lunch break for a photo of coffee for home to hang above the coffee maker. She found a nice photo of a latte with a leaf drawn in the foam and hit the favorite button. Lucy wants to come back to it and later and wait until payday, friday, to think about buying it.</p>
 			<h3>Interaction flow</h3>
 		<ul>
 			<li>User logs into site with user name and password</li>
