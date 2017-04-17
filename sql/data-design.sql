@@ -31,7 +31,7 @@ CREATE TABLE product (
 CREATE TABLE favorite (
 
 	favoriteProfileId INT UNSIGNED NOT NULL,
-	favoriteProductId INT UNSIGNED NOT NULL)
+	favoriteProductId INT UNSIGNED NOT NULL,
 	INDEX(favoriteProfileId),
 	INDEX(favoriteProductId),
 	FOREIGN KEY(favoriteProfileId) REFERENCES profile(profileId),
