@@ -25,14 +25,15 @@ CREATE TABLE product (
 	/* similar to tweet content in example */
 	productTitle VARCHAR(128) NOT NULL,
 	/*productPrice, not sure how to do a price */
-	INDEX(productId),
+	INDEX (productId),
+	FOREIGN KEY(productId) REFERENCES profile(profileId),
 	PRIMARY KEY(productId),
 
 );
 
 CREATE TABLE favorite (
 
-	favoriteProductId,
-	favoriteProfileId,
+	favoriteProductId INT UNSIGNED NOT NULL,
+	favoriteProfileId INT UNSIGNED NOT NULL,
 
 );
