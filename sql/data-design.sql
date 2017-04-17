@@ -30,5 +30,11 @@ CREATE TABLE product (
 
 CREATE TABLE favorite (
 
-	favoriteProductId INT UNSIGNED NOT NULL,
-	favoriteProfileId INT UNSIGNED NOT NULL);
+	favoriteProfileId INT UNSIGNED NOT NULL,
+	favoriteProductId INT UNSIGNED NOT NULL)
+	INDEX(favoriteProfileId),
+	INDEX(favoriteProductId),
+	FOREIGN KEY(favoriteProfileId) REFERENCES profile(profileId),
+	FOREIGN KEY(favoriteProductId) REFERENCES product(productId)
+
+);
