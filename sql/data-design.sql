@@ -24,9 +24,11 @@ CREATE TABLE product (
 	-- similar to tweet content in example --/
 	productTitle VARCHAR(128) NOT NULL,
 	-- productPrice, not sure how to do a price --/
+	-- needs to be a INT and CHAR(8) or something for price not null --/
 	INDEX (productId),
 	FOREIGN KEY(productId) REFERENCES profile(profileId),
 	PRIMARY KEY(productId));
+
 
 CREATE TABLE favorite (
 
