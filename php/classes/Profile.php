@@ -6,17 +6,12 @@ require_once("autoloader.php");
  * <p>This is a practice for a really bad etsy page where in a profile favorites a product</p>
  * @author a student named Danielle <dmartin61@cnm.edu>
  **/
-Class Profile implements \JsonSerializable {
+Class Profile {
 	/** the rest of this {} is at the very end
 	 *primary  key for profileId
 	 * @var int $profileId
 	 **/
 	private $profileId;
-	/**
-	 * the user who owns this profile; foreign key
-	 * @var int $userId
-	 **/
-	private $userId;
 	/**
 	 * first name of user
 	 * @var string $firstName
@@ -27,11 +22,17 @@ Class Profile implements \JsonSerializable {
 	 * @var string $lastName
 	 **/
 	private $lastName;
-
 	/**
-	 *
-	 *
+	 * email of user
+	 * @var string $profileEmail
 	 **/
+	private $profileEmail;
+	/**
+	 * the user who owns this profile; foreign key
+	 * @var int $profileAtHandle aka $userId
+	 **/
+	private $profileAtHandle;
+
 
 
 	/**
@@ -83,13 +84,36 @@ Class Profile implements \JsonSerializable {
 		//verify the first name is valid
 		$newFirstName = filter_var($newFirstName, FILTER_SANTIZE_STRING);
 		if($newFirstName ===false) {
-			throw(new UnexpectedValueException)
+			throw(new UnexpectedValueException("First Name is not a valid string"));
+		}}
+
+		/**
+		 *accessor method for last name
+		 *
+		 * @return string value of last name
+		 **/
+	public function getLastName() {
+			return ($this->lastName);
 		}
 
-
+		/**
+		 * mutator method for last name
+		 *
+		 * @param
+		 * @throws UnexpectedValueException if $newLastName is not valid
+		 **/
+	public function setLastName($newLastName) {
+		$newFirstNAme = filter_var($newFirstName, FILTER_SANITIZE_STRING);
+		if($newLastName ===false) {
+			throw(new UnexpectedValueException("Last name is not a valid string"));
+		}
 	}
 
 
 
-}
+
+
+
+	}
+
 ?>
