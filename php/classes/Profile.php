@@ -25,23 +25,24 @@ Class Profile {
 	/**
 	 * password hash
 	 * @var string $profileHash
-	 **/
+	 *
 	private $profileHash;
-	/**
+	 *
 	 * password salt
 	 * @var string $profileSalt
-	 **/
-	private $profileSalt
-	/**
+	 *
+	* private $profileSalt
+	*
 	 * email of user
 	 * @var string $profileEmail
-	 **/
-	private $profileEmail;
-	/**
+	 *
+	 * private $profileEmail;
+	 *
 	 * the user who owns this profile; foreign key
 	 * @var int $profileAtHandle aka $userId
+	 *
+	 * private $profileAtHandle;
 	 **/
-	private $profileAtHandle;
 
 
 
@@ -58,7 +59,7 @@ Class Profile {
 	 * it's like a clean up or a save
 	 *
 	 * @param int $newProfileId new value of profile id
-	 * @throws UnexpectedValueException if $newProfileId is not an integer
+	 * @throws \UnexpectedValueException if $newProfileId is not an integer
 	 *
 	 * only one = means is/assign
 	 * three === means is this true?
@@ -68,7 +69,7 @@ Class Profile {
 	public function setProfileId ($newProfileId) {
 		$newProfileId = filter_var($newProfileId, FILTER_VALIDATE_INT) ;
 		if($newProfileId === false) {
-			throw(new UnexpectedValueException("profile id is not valid integer"));
+			throw(new \UnexpectedValueException("profile id is not valid integer"));
 		}
 		/**
 		 * intval will convert this to an integer and store it
@@ -94,7 +95,7 @@ Class Profile {
 		//verify the first name is valid
 		$newFirstName = filter_var($newFirstName, FILTER_SANTIZE_STRING);
 		if($newFirstName ===false) {
-			throw(new UnexpectedValueException("First Name is not a valid string"));
+			throw(new \UnexpectedValueException("First Name is not a valid string"));
 		}}
 
 		/**
@@ -110,12 +111,12 @@ Class Profile {
 		 * mutator method for last name
 		 *
 		 * @param
-		 * @throws UnexpectedValueException if $newLastName is not valid
+		 * @throws \UnexpectedValueException if $newLastName is not valid
 		 **/
 	public function setLastName($newLastName) {
 		$newFirstNAme = filter_var($newFirstName, FILTER_SANITIZE_STRING);
 		if($newLastName ===false) {
-			throw(new UnexpectedValueException("Last name is not a valid string"));
+			throw(new \UnexpectedValueException("Last name is not a valid string"));
 		}
 	}
 
@@ -136,8 +137,8 @@ Class Profile {
 			throw(new \InvalidArgumentException("profile password hash empty or insecure"));
 		}
 		//enforce that the hash is a string representation of a hexidecimal
-		if(!ctype_xdigit($newProfileHash)) {
-				throw(new \RangeException("profile hash must be 128 characters"));
+		//if(!ctype_xdigit($newProfileHash)) {
+				//throw(new \RangeException("profile hash must be 128 characters"));
 		}
 		//enforce that the hash is exactly 128 characters.
 		if(strlen($newProfileHash) !==128) {
