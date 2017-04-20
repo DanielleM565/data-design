@@ -148,9 +148,7 @@ Class Profile {
 		$this->profileHash = $newProfileHash;
 	}
 
-
-
-
+require_once("autoload.php");
 
 
 
