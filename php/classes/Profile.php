@@ -23,6 +23,16 @@ Class Profile {
 	 **/
 	private $lastName;
 	/**
+	 * password hash
+	 * @var string $profileHash
+	 **/
+	private $profileHash;
+	/**
+	 * password salt
+	 * @var string $profileSalt
+	 **/
+	private $profileSalt
+	/**
 	 * email of user
 	 * @var string $profileEmail
 	 **/
@@ -108,6 +118,35 @@ Class Profile {
 			throw(new UnexpectedValueException("Last name is not a valid string"));
 		}
 	}
+
+	/**
+	 * Mutator method for profile has password
+	 *
+	 * @param string $newProfileHash
+	 * @throws \InvalidArgumentException if the hash is not secure
+	 * @throws \RangeException if the hash is not  128 characters
+	 * @throws \TypeError if profile hash is not a string
+	 **/
+
+	public function setProfileHash(string $newProfileHash): void {
+		//enforce that the hash is properly formatted
+		$newProfileHAsh = trim($newProfileHash);
+		$newProfileHash = strtolower($newProfileHash);
+		if(empty($newProfileHash)) === true) {
+			throw(new \InvalidArgumentException("profile password hash empty or insecure"));
+		}
+		//enforce that the hash is a string representation of a hexidecimal
+		if(!ctype_xdigit($newProfileHash)) {
+				throw(new \RangeException("profile hash must be 128 characters"));
+		}
+		//enforce that the hash is exactly 128 characters.
+		if(strlen($newProfileHash) !==128) {
+			throw(new \RangeException("profile hash must be 128 characters"));
+		}
+		//store the hash
+		$this->profileHash = $newProfileHash;
+	}
+
 
 
 
