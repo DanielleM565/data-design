@@ -1,6 +1,6 @@
 <?php
 namespace Edu\Cnm\DataDesign;
-require_once("autoloader.php");
+require_once("autoload.php");
 /** <h1>Example of a really bad etsy page</h1>
  *
  * <p>This is a practice for a really bad etsy page where in a profile favorites a product</p>
@@ -25,24 +25,24 @@ Class Profile {
 	/**
 	 * password hash
 	 * @var string $profileHash
-	 *
+	 **/
 	private $profileHash;
-	 *
+	/**
 	 * password salt
 	 * @var string $profileSalt
-	 *
-	* private $profileSalt
-	*
+	 **/
+	private $profileSalt
+	/**
 	 * email of user
 	 * @var string $profileEmail
-	 *
-	 * private $profileEmail;
-	 *
+	 **/
+	 private $profileEmail;
+	/**
 	 * the user who owns this profile; foreign key
 	 * @var int $profileAtHandle aka $userId
-	 *
-	 * private $profileAtHandle;
 	 **/
+	 private $profileAtHandle;
+
 
 
 
@@ -88,7 +88,7 @@ Class Profile {
 	/**
 	 * matuator method for first name
 	 *
-	 * @paramstring $newFirstName new value of first name
+	 * @param string $newFirstName new value of first name
 	 * @throw UnexpectedValueException if $newFirstName is not valid
 	 **/
 	public function setFirstName($newFirstName) {
@@ -104,19 +104,41 @@ Class Profile {
 		 * @return string value of last name
 		 **/
 	public function getLastName() {
-			return ($this->lastName);
-		}
+	return ($this->lastName);
+}
 
 		/**
 		 * mutator method for last name
 		 *
-		 * @param
-		 * @throws \UnexpectedValueException if $newLastName is not valid
+		 * @param string $newLastName
+		 * @throws UnexpectedValueException if $newLastName is not valid
 		 **/
 	public function setLastName($newLastName) {
-		$newFirstNAme = filter_var($newFirstName, FILTER_SANITIZE_STRING);
+		$newFirstName = filter_var($newFirstName, FILTER_SANITIZE_STRING);
 		if($newLastName ===false) {
 			throw(new \UnexpectedValueException("Last name is not a valid string"));
+		}
+	}
+
+		/**
+		 * accessor method for email
+		 *
+		 * @return string value of email
+		 **/
+		public function getProfileEmail() {
+			return ($this->ProfileEmail);
+		}
+
+	/**
+	 * mutator method for email
+	 *
+	 * @param string $newProfileEmail
+	 * @throws \UnexpectedValueException if $
+	 */
+	public function setProfileEmail($newProfileEmail) {
+		$newProfileEmail = filter_var($newProfileEmail, FILTER_SANTIZE_STRING);
+		if($newProfileEmail ===false)  {
+			throw(new \UnexpectedValueException("Email invalid"));
 		}
 	}
 
@@ -131,15 +153,15 @@ Class Profile {
 
 	public function setProfileHash(string $newProfileHash): void {
 		//enforce that the hash is properly formatted
-		$newProfileHAsh = trim($newProfileHash);
+		$newProfileHash = trim($newProfileHash);
 		$newProfileHash = strtolower($newProfileHash);
-		if(empty($newProfileHash)) === true) {
+		if(empty($newProfileHash))=== true) {
 			throw(new \InvalidArgumentException("profile password hash empty or insecure"));
 		}
 		//enforce that the hash is a string representation of a hexidecimal
-		//if(!ctype_xdigit($newProfileHash)) {
-				//throw(new \RangeException("profile hash must be 128 characters"));
-		}
+		if(!ctype_xdigit($newProfileHash))
+		 throw(new \RangeException("profile hash must be 128 characters"));
+
 		//enforce that the hash is exactly 128 characters.
 		if(strlen($newProfileHash) !==128) {
 			throw(new \RangeException("profile hash must be 128 characters"));
@@ -148,10 +170,36 @@ Class Profile {
 		$this->profileHash = $newProfileHash;
 	}
 
-require_once("autoload.php");
+/**
+ * formats the state variables for JSON serialization
+ *
+ * @return array resulting state variables to serialize
+ **/
+public function jsonSerialize() {
+	$fields = get_object_vars($this);
+	//format the date so that the front end can consume it
+	$fields["favoriteDate"] = round(floatval($this->favoriteDate->format("U.u"))*1000);
+		return($fields);
+}
 
 
+/**
+ * inserts product action into mySQL
+ *
+ * @param \PDO $pdo PDO connection object
+ * @throws \PDOException when mySQL related errors occur
+ * @throws \TypeError if $pdo is not a PDO connection object
+ **/
 
+	public function insert(\PDO $pdo) : void {
+		// enforce the productId is null (i.e., don't insert the same product twice)
+		if($this->productId !== null) {
+				throw(new \PDOException("not a new product"));
+		}
 	}
 
+
+
+
+}
 ?>
