@@ -6,45 +6,75 @@ require_once("autoload.php");
  * <p>This is a practice for a really bad etsy page where in a profile favorites a product</p>
  * @author a student named Danielle <dmartin61@cnm.edu>
  **/
-Class Profile {
+Class Profile implements \JsonSerializable {
 	/** the rest of this {} is at the very end
 	 *primary  key for profileId
 	 * @var int $profileId
 	 **/
 	private $profileId;
 	/**
-	 * first name of user
-	 * @var string $firstName
-	 **/
-	private $firstName;
-	/**
-	 * last name of user
-	 * @var string $lastName
-	 **/
-	private $lastName;
-	/**
-	 * password hash
-	 * @var string $profileHash
-	 **/
-	private $profileHash;
-	/**
-	 * password salt
-	 * @var string $profileSalt
-	 **/
-	private $profileSalt
-	/**
 	 * email of user
 	 * @var string $profileEmail
 	 **/
-	 private $profileEmail;
+	private $profileEmail;
+	/**
+	 * email activation token
+	 **/
+	private $profileActivationToken;
 	/**
 	 * the user who owns this profile; foreign key
 	 * @var int $profileAtHandle aka $userId
 	 **/
-	 private $profileAtHandle;
+	private $profileAtHandle;
+
+	/**
+	 * password hash
+	 * @var string $profileHash;
+	 **/
+	private $profileHash;
+	/**
+	 * password salt
+	 * @var string $profileSalt;
+	 **/
+	private $profileSalt;
 
 
+		/**
+		 *constructor for this Profile
+		 *
+		 * @param int|null $newProfileId of this profile or null if a new Profile
+		 * @param string $newProfileEmail string containing user's email
+		 * @param string $newProfileActivationToken activation token to safe guard against malicious accounts
+		 * @param string $newProfileAtHandle string containing newAtHandle
+		 * @param string $newProfileHash string containing password hash
+		 * @param string $newProfileSalt string containing password salt
+		 * @throws \InvalidArgumentException if data types are not valid
+		 * @throws \RangeException if data values are out of bounds (ex. stings too long negative integers)
+		 * @throws \TypeError if data types violate type hints
+		 * @throws \Exception if some other exception occurs
+		 * @Documentation https://php.net/manual/en/language.oop5.decon.php
+		 **/
 
+
+		public function__Construct( ?int $newProfileId, ?string $newProfileEmail, ?string $newProfileActivationToken, ?string $newProfileAtHandle, ?string $newProfileHash, ?string $ProfileSalt);
+		try {
+			$this->setProfileId($newProfileId);
+			$this->setProfileEmail($newProfileEmail);
+			$this->setProfileActivationToken($newProfileActivationToken);
+			$this->setProfileAtHandle($newProfileAtHandle);
+			$this->setProfileHash($newProfileHash);
+			$this->setProfileSalt($newProfileSalt);
+		}
+
+			catch(\InvalidArgumentException | \RangeException | \Exception |TypeError $esception) {
+			//determine what exception type was thrown
+			$exceptionType = get_class($exception);
+			throw(new $exceptionType($exception->getMessage(), ), $exception));
+		}
+
+		/**
+		 *
+		 */
 
 	/**
 	 * accessor method for profile id
@@ -78,6 +108,9 @@ Class Profile {
 		$this ->profileId = intval($newProfileId);
 	}
 
+			public function setProfileAtHandle(int $profileAtHandle) {
+	$this->profileAtHandle = $profileAtHandle;
+}
 	/**accessor method for the first name
 	 *
 	 * @return string value of first name
@@ -155,7 +188,7 @@ Class Profile {
 		//enforce that the hash is properly formatted
 		$newProfileHash = trim($newProfileHash);
 		$newProfileHash = strtolower($newProfileHash);
-		if(empty($newProfileHash))=== true) {
+		if(empty($newProfileHash))=== true;{
 			throw(new \InvalidArgumentException("profile password hash empty or insecure"));
 		}
 		//enforce that the hash is a string representation of a hexidecimal
@@ -197,6 +230,8 @@ public function jsonSerialize() {
 				throw(new \PDOException("not a new product"));
 		}
 	}
+	//create query template
+	$query = "INSERT INTO product("
 
 
 
