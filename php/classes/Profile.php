@@ -66,7 +66,6 @@ Class Profile implements \JsonSerializable {
 			$this->setProfileSalt($newProfileSalt);
 		}
 
-
 			catch(\InvalidArgumentException | \RangeException | \Exception |TypeError $esception) {
 			//determine what exception type was thrown
 			$exceptionType = get_class($exception);
