@@ -160,8 +160,13 @@ if(empty($newProfileAtHandle)===true) {
 	//Store the at handle
 	$this->profileAtHandle = $newProfileAtHandle;
 }
-
-
+/**
+ * accessor method for profileHash
+ * @return string value of hash
+ **/
+public function getProfileHash(): string {
+	return $this->profileHash;
+}
 
 	/**
 	 * Mutator method for profile has password
@@ -180,9 +185,9 @@ if(empty($newProfileAtHandle)===true) {
 			throw(new \InvalidArgumentException("profile password hash empty or insecure"));
 		}
 		//enforce that the hash is a string representation of a hexidecimal
-		if(!ctype_xdigit($newProfileHash))
-		 throw(new \RangeException("profile hash must be 128 characters"));
-
+		if(!ctype_xdigit($newProfileHash)) {
+			throw(new \RangeException("profile hash must be 128 characters"));
+		}
 		//enforce that the hash is exactly 128 characters.
 		if(strlen($newProfileHash) !==128) {
 			throw(new \RangeException("profile hash must be 128 characters"));
@@ -190,6 +195,58 @@ if(empty($newProfileAtHandle)===true) {
 		//store the hash
 		$this->profileHash = $newProfileHash;
 	}
+
+	/**
+	 * Accessor method for profile salt
+	 *
+	 * @return string representation of the salt hexidecimal
+	 **/
+	public function getProfileSalt(): string {
+		return $this->profileSalt;
+	}
+	/**
+	 * Mutator Method for profile salt
+	 *
+	 * @param string $newProfileSalt
+	 * @throws \InvalidArgumentException if the salt is not secure
+	 * @throws \RangeException if the salt is not 64 characters
+	 * @throws \typeError if profile salt is not a string
+	 **/
+	public function setProfileSalt(string $newProfileSalt): void {
+		//enforce that the salt is properly formatted
+	$newProfileSalt = trim($newProfileSalt);
+	$newProfileSalt = strtolower($newProfileSalt);
+
+	//enfore that the salt us a string representation of a hexadecimal
+	if(!ctype_xdigit($newProfileSalt)) {
+		throw(new \InvalidArgumentException("profile password hash is empty or insecure"));
+	}
+	//enforce that hte salt is exactly 64 characters
+	if(strlen($newProfileSalt) !==64){
+		throw(new \RangeException("profile salt must be 128 characters"));
+	}
+	//store the salt
+	$this->profileSalt = $newProfileSalt;
+	}
+
+
+	/**
+	 * inserts this profile into mySQL
+	 *
+	 * @param \PDO $pdo PDO connection object
+	 * @throws \PDOException when mySQL related errors occur
+	 * @throws \TypeError if $pdo is not PDO connection object
+	 **/
+	public function insert(\PDO $pdo): void {
+		// enforce the profileID is null (i.e., don;t insert a profile that already exists)
+	if($this->profileId !==null) {
+		throw(new \PDOException("not a new profile"));
+	}
+
+	//create query template
+	}
+
+
 
 /**
  * formats the state variables for JSON serialization
