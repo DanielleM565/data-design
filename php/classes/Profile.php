@@ -288,12 +288,12 @@ public function getProfileHash(): string {
 	 *
 	 * @param \PDO $pdo PDO connection object
 	 * @throws \PDOException when mySQL related errors occur
-	 * @throws \TypeError if $ppo is not null (i.e.. don't delete a profile that does not exist)
+	 * @throws \TypeError if $pdo is not null (i.e.. don't delete a profile that does not exist)
 	 **/
 public function delete(\PDO $pdo): void {
 	//enforce the profileId is not null (i.e., don't delete a profile that does not exist)
 	if($this->profileId === null) {
-		throw(new \PDOException("unable to delete a profile that dooes not exist"));
+		throw(new \PDOException("unable to delete a profile that does not exist"));
 	}
 	//create query template
 	$query = "DELETE FROM profile WHERE profileId = :profileId";
@@ -303,6 +303,24 @@ public function delete(\PDO $pdo): void {
 	$parameters = ["profileId" => $this->profileId];
 	$statement->execute($parameters);
 }
+
+	/**
+	 * updates this profile from mySQL
+	 * @param \PDO $pdo PDO connection object
+	 * @throws \PDOException when mySQL related errors occur
+	 * @throws \TypeError if $pdo is not a PDO connection object
+	 **/
+public function update(\PDO $pdo): void {
+	//Enforce the profileId is not null (i.e., don't update a profile that does not exist)
+	if($this->profileId === null) {
+		throw(new \PDOException("unable to update a profile that does not exist"));
+	}
+//create query template
+	$query = "UPDATE profile SET profileActivationToken = :profileActivationToken, profileAtHandle = :profileAtHandle,"
+}
+
+
+
 
 
 /**
