@@ -57,7 +57,7 @@ class Profile implements \JsonSerializable {
 	 **/
 
 
-public function __construct(?int $newProfileId, string $newProfileEmail, ?string $newProfileActivationToken, string $newProfileAtHandle, ?string $newProfileHash, ?string $ProfileSalt) {
+public function __construct(?int $newProfileId, string $newProfileEmail, ?string $newProfileActivationToken, string $newProfileAtHandle, string $newProfileHash, string $newProfileSalt) {
 try {
 $this->setProfileId($newProfileId);
 $this->setProfileEmail($newProfileEmail);
@@ -132,7 +132,29 @@ public function setProfileEmail(string $newProfileEmail): void {
 	$this->profileEmail = $newProfileEmail;
 }
 
-
+	/**
+	 * mutator method for account activation token
+	 *
+	 * @param string $newProfileActivationToken
+	 * @throws \InvalidArgumentException if the toke is not a string or insecure
+	 * @throws \RangeException if the token is not exactly 32 characters
+	 * @throws \TypeError if the activation token is not a string
+	 **/
+public function setProfileActivationToken(?string $newProfileActivationToken): void {
+	if($newProfileActivationToken === null) {
+		$this->profileActivationToken = null;
+		return;
+	}
+	$newProfileActivationToken = strtolower(trim($newProfileActivationToken));
+	if(ctype_xdigit($newProfileActivationToken) === false) {
+		throw(new\RangeException("user activation is not valid"));
+	}
+	//make sure user activation token is only 32 characters
+	if(strlen($newProfileActivationToken) !== 32) {
+		throw(new\RangeException("user token has to be 32"));
+	}
+	$this->profileActivationToken = $newProfileActivationToken;
+}
 
 /**
  * accessor method for at handle
@@ -140,12 +162,12 @@ public function setProfileEmail(string $newProfileEmail): void {
  * @return string value of at handle
  **/
 public function getProfileAtHandle(): string {
-	return (&this->ProfileAtHandle);
+	return ($this->profileAtHandle);
 }
 /**
  * mutator method for at handle
  *
- * @param string $newprofileAtHandle new value of at handle
+ * @param string $newProfileAtHandle new value of at handle
  * @throws \InvalidArgumentException if $newAtHandle is not a string or insecure
  * @throws \RangeException if $newAtHandle is not a string or insecure
  * @throws \TypeError if $newAtHandle is not a string
@@ -153,7 +175,7 @@ public function getProfileAtHandle(): string {
 public function setProfileAtHandle(string $newProfileAtHandle): void {
 	//verify the at handle is secure
 	$newProfileAtHandle = trim($newProfileAtHandle);
-	$newProfileAtHandle = FILTER_SANITIZE_STIRNG, FILTER_FLAG_NO_ENCODE_QUOTES);
+	$newProfileAtHandle = filter_var($newProfileAtHandle, FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
 if(empty($newProfileAtHandle) === true) {
 	throw(new \InvalidArgumentException("profile at handle is empty or insecure"));
 }
@@ -182,23 +204,26 @@ public function getProfileHash(): string {
 	 **/
 
 	public function setProfileHash(string $newProfileHash): void {
-	//enforce that the hash is properly formatted
-	$newProfileHash = trim($newProfileHash);
-	$newProfileHash = strtolower($newProfileHash);
-	if(empty($newProfileHash))=== true;{
-		throw(new \InvalidArgumentException("profile password hash empty or insecure"));
-	}
+		//enforce that the hash is properly formatted
+		$newProfileHash = trim($newProfileHash);
+		$newProfileHash = strtolower($newProfileHash);
+
+		if(empty($newProfileHash) === true ) {
+			throw(new \InvalidArgumentException("profile hash empty or insecure"));
+		}
+
 		//enforce that the hash is a string representation of a hexidecimal
 		if(!ctype_xdigit($newProfileHash)) {
-			throw(new \RangeException("profile hash must be 128 characters"));
+			throw(new \InvalidArgumentException("profile hash empty or insecure"));
 		}
 		//enforce that the hash is exactly 128 characters.
 		if(strlen($newProfileHash) !== 128) {
 			throw(new \RangeException("profile hash must be 128 characters"));
 		}
-		//store the hash
-		$this->profileHash = $newProfileHash;
-	}
+			//store the hash
+			$this->profileHash = $newProfileHash;
+		}
+
 
 	/**
 	 * Accessor method for profile salt
@@ -248,7 +273,7 @@ public function getProfileHash(): string {
 	}
 
 	//create query template
-	$query = "INSERT INTO profile (profileActivationToken, profileAtHandle, profileEmail, profileHash, profileSalt) VALUES (:profileActivationToken, :profileAtHandle, :profileEmail, :profileHash, :profileHash, :profileSalt)";
+	$query = "INSERT INTO profile(profileActivationToken, profileAtHandle, profileEmail, profileHash, profileSalt) VALUES (:profileActivationToken, :profileAtHandle, :profileEmail, :profileHash, :profileSalt)";
 	$statement = $pdo->prepare($query);
 
 	//bind the member variables to the place holders in the template
@@ -257,28 +282,27 @@ public function getProfileHash(): string {
 
 	//update the null profileId with what mySQL just gave us
 	$this->profileId = intval($pdo->lastInsertId());
-
-	//stopped here about line 368 in php profile git hub file
 }
-
-
-
-/**
- * inserts product action into mySQL
- *
- * @param \PDO $pdo PDO connection object
- * @throws \PDOException when mySQL related errors occur
- * @throws \TypeError if $pdo is not a PDO connection object
- **/
-
-	public function insert(\PDO $pdo): void {
-	// enforce the productId is null (i.e., don't insert the same product twice)
-	if($this->productId !== null) {
-		throw(new \PDOException("not a new product"));
+	/**
+	 * deletes this profile from mySQL
+	 *
+	 * @param \PDO $pdo PDO connection object
+	 * @throws \PDOException when mySQL related errors occur
+	 * @throws \TypeError if $ppo is not null (i.e.. don't delete a profile that does not exist)
+	 **/
+public function delete(\PDO $pdo): void {
+	//enforce the profileId is not null (i.e., don't delete a profile that does not exist)
+	if($this->profileId === null) {
+		throw(new \PDOException("unable to delete a profile that dooes not exist"));
 	}
-}
 	//create query template
+	$query = "DELETE FROM profile WHERE profileId = :profileId";
+	$statement = $pdo->prepare($query);
 
+	//bind the member variables to the place holders in the template
+	$parameters = ["profileId" => $this->profileId];
+	$statement->execute($parameters);
+}
 
 
 /**
