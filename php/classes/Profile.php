@@ -1,13 +1,15 @@
 <?php
+
 namespace Edu\Cnm\DataDesign;
 require_once("autoload.php");
+
 /** <h1>Example of a really bad etsy page</h1>
  *
  * <p>This is a practice for a really bad etsy page where in a profile favorites a product</p>
  * @author a student named Danielle <dmartin61@cnm.edu>
  **/
-Class Profile implements \JsonSerializable {
-	/** the rest of this {} is at the very end
+class Profile implements \JsonSerializable {
+	/**
 	 *primary  key for profileId
 	 * @var int $profileId
 	 **/
@@ -28,48 +30,50 @@ Class Profile implements \JsonSerializable {
 	private $profileAtHandle;
 	/**
 	 * password hash
-	 * @var string $profileHash;
+	 * @var string $profileHash
 	 **/
 	private $profileHash;
 	/**
 	 * password salt
-	 * @var string $profileSalt;
+	 * @var string $profileSalt
 	 **/
 	private $profileSalt;
 
 
-		/**
-		 *constructor for this Profile
-		 *
-		 * @param int|null $newProfileId of this profile or null if a new Profile
-		 * @param string $newProfileEmail string containing user's email
-		 * @param string $newProfileActivationToken activation token to safe guard against malicious accounts
-		 * @param string $newProfileAtHandle string containing newAtHandle
-		 * @param string $newProfileHash string containing password hash
-		 * @param string $newProfileSalt string containing password salt
-		 * @throws \InvalidArgumentException if data types are not valid
-		 * @throws \RangeException if data values are out of bounds (ex. stings too long negative integers)
-		 * @throws \TypeError if data types violate type hints
-		 * @throws \Exception if some other exception occurs
-		 * @Documentation https://php.net/manual/en/language.oop5.decon.php
-		 **/
+	/**
+	 *constructor for this Profile
+	 *
+	 * @param int|null $newProfileId of this profile or null if a new Profile
+	 * @param string $newProfileEmail string containing user's email
+	 * @param string $newProfileActivationToken activation token to safe guard against malicious accounts
+	 * @param string $newProfileAtHandle string containing newAtHandle
+	 * @param string $newProfileHash string containing password hash
+	 * @param string $newProfileSalt string containing password salt
+	 * @throws \InvalidArgumentException if data types are not valid
+	 * @throws \RangeException if data values are out of bounds (ex. stings too long negative integers)
+	 * @throws \TypeError if data types violate type hints
+	 * @throws \Exception if some other exception occurs
+	 * @Documentation https://php.net/manual/en/language.oop5.decon.php
+	 **/
 
 
-		public function__Construct( ?int $newProfileId, ?string $newProfileEmail, ?string $newProfileActivationToken, ?string $newProfileAtHandle, ?string $newProfileHash, ?string $ProfileSalt);
-		try {
-			$this->setProfileId($newProfileId);
-			$this->setProfileEmail($newProfileEmail);
-			$this->setProfileActivationToken($newProfileActivationToken);
-			$this->setProfileAtHandle($newProfileAtHandle);
-			$this->setProfileHash($newProfileHash);
-			$this->setProfileSalt($newProfileSalt);
-		}
+public function __construct(?int $newProfileId, string $newProfileEmail, ?string $newProfileActivationToken, string $newProfileAtHandle, ?string $newProfileHash, ?string $ProfileSalt) {
+try {
+$this->setProfileId($newProfileId);
+$this->setProfileEmail($newProfileEmail);
+$this->setProfileActivationToken($newProfileActivationToken);
+$this->setProfileAtHandle($newProfileAtHandle);
+$this->setProfileHash($newProfileHash);
+$this->setProfileSalt($newProfileSalt);
+}
 
-			catch(\InvalidArgumentException | \RangeException | \Exception |\TypeError $exception) {
-			//determine what exception type was thrown
-			$exceptionType = get_class($exception);
-			throw(new $exceptionType($exception->getMessage(), 0, $exception));
-		}
+catch
+(\InvalidArgumentException | \RangeException | \Exception | \TypeError $exception) {
+	//determine what exception type was thrown
+	$exceptionType = get_class($exception);
+	throw(new $exceptionType($exception->getMessage(), 0, $exception));
+}
+}
 
 	/**
 	 * accessor method for profile id
@@ -78,8 +82,8 @@ Class Profile implements \JsonSerializable {
 	 * (or null if new profile)
 	 **/
 	public function getProfileId() {
-		return($this->profileId);
-	}
+	return ($this->profileId);
+}
 	/**
 	 * mutator method for profileId
 	 * it's like a clean up or a save
@@ -98,7 +102,7 @@ Class Profile implements \JsonSerializable {
 		return;
 	}
 	//verify the profile id is positive
-	if($newProfleId <= 0) {
+	if($newProfileId <= 0) {
 		throw(new \RangeException("profile id is not positive"));
 	}
 	//convert and store the profile id
@@ -122,7 +126,7 @@ public function setProfileEmail(string $newProfileEmail): void {
 	}
 	//verify the email will fit in the database
 	if(strlen($newProfileEmail) > 128) {
-			throw(new \RangeException("profile email is too long"));
+		throw(new \RangeException("profile email is too long"));
 	}
 	//store the email
 	$this->profileEmail = $newProfileEmail;
@@ -146,12 +150,12 @@ public function getProfileAtHandle(): string {
  * @throws \RangeException if $newAtHandle is not a string or insecure
  * @throws \TypeError if $newAtHandle is not a string
  **/
-public function setProfileAtHandle(string $newProfileAtHandle) : void {
+public function setProfileAtHandle(string $newProfileAtHandle): void {
 	//verify the at handle is secure
 	$newProfileAtHandle = trim($newProfileAtHandle);
 	$newProfileAtHandle = FILTER_SANITIZE_STIRNG, FILTER_FLAG_NO_ENCODE_QUOTES);
-if(empty($newProfileAtHandle)===true) {
-		throw(new \InvalidArgumentException("profile at handle is empty or insecure"));
+if(empty($newProfileAtHandle) === true) {
+	throw(new \InvalidArgumentException("profile at handle is empty or insecure"));
 }
 //verify the at handle will fit in the database
 	if(strlen($newProfileAtHandle) > 32) {
@@ -178,18 +182,18 @@ public function getProfileHash(): string {
 	 **/
 
 	public function setProfileHash(string $newProfileHash): void {
-		//enforce that the hash is properly formatted
-		$newProfileHash = trim($newProfileHash);
-		$newProfileHash = strtolower($newProfileHash);
-		if(empty($newProfileHash))=== true;{
-			throw(new \InvalidArgumentException("profile password hash empty or insecure"));
-		}
+	//enforce that the hash is properly formatted
+	$newProfileHash = trim($newProfileHash);
+	$newProfileHash = strtolower($newProfileHash);
+	if(empty($newProfileHash))=== true;{
+		throw(new \InvalidArgumentException("profile password hash empty or insecure"));
+	}
 		//enforce that the hash is a string representation of a hexidecimal
 		if(!ctype_xdigit($newProfileHash)) {
 			throw(new \RangeException("profile hash must be 128 characters"));
 		}
 		//enforce that the hash is exactly 128 characters.
-		if(strlen($newProfileHash) !==128) {
+		if(strlen($newProfileHash) !== 128) {
 			throw(new \RangeException("profile hash must be 128 characters"));
 		}
 		//store the hash
@@ -202,8 +206,8 @@ public function getProfileHash(): string {
 	 * @return string representation of the salt hexidecimal
 	 **/
 	public function getProfileSalt(): string {
-		return $this->profileSalt;
-	}
+	return $this->profileSalt;
+}
 	/**
 	 * Mutator Method for profile salt
 	 *
@@ -213,7 +217,7 @@ public function getProfileHash(): string {
 	 * @throws \typeError if profile salt is not a string
 	 **/
 	public function setProfileSalt(string $newProfileSalt): void {
-		//enforce that the salt is properly formatted
+	//enforce that the salt is properly formatted
 	$newProfileSalt = trim($newProfileSalt);
 	$newProfileSalt = strtolower($newProfileSalt);
 
@@ -222,12 +226,12 @@ public function getProfileHash(): string {
 		throw(new \InvalidArgumentException("profile password hash is empty or insecure"));
 	}
 	//enforce that the salt is exactly 64 characters
-	if(strlen($newProfileSalt) !==64){
+	if(strlen($newProfileSalt) !== 64) {
 		throw(new \RangeException("profile salt must be 128 characters"));
 	}
 	//store the salt
 	$this->profileSalt = $newProfileSalt;
-	}
+}
 
 
 	/**
@@ -238,38 +242,25 @@ public function getProfileHash(): string {
 	 * @throws \TypeError if $pdo is not PDO connection object
 	 **/
 	public function insert(\PDO $pdo): void {
-		// enforce the profileID is null (i.e., don;t insert a profile that already exists)
-	if($this->profileId !==null) {
+	// enforce the profileID is null (i.e., don;t insert a profile that already exists)
+	if($this->profileId !== null) {
 		throw(new \PDOException("not a new profile"));
 	}
 
 	//create query template
-	$query = "Insert INTO profile (profileActivationToken, profileAtHandle, profileEmail, profileHash, profileSalt) VALUES (:profileActivationToken, :profileAtHandle, :profileEmail, :profileHash, :profileHash, :profileSalt)";
-		$statement = $pdo->prepare($query);
+	$query = "INSERT INTO profile (profileActivationToken, profileAtHandle, profileEmail, profileHash, profileSalt) VALUES (:profileActivationToken, :profileAtHandle, :profileEmail, :profileHash, :profileHash, :profileSalt)";
+	$statement = $pdo->prepare($query);
 
-		//bind the member variables to the place holders in the template
-	$parameters = ["profileActivationToken" => $this->profileActivationToken, "profileAtHandle" => $this->profileAtHandle, "profileEmail" => $this->profileEmail, "profileHash" => $this->profileHash, "profileSalt" =>$this->profileSalt];
-		$statement->execute($parameters);
+	//bind the member variables to the place holders in the template
+	$parameters = ["profileActivationToken" => $this->profileActivationToken, "profileAtHandle" => $this->profileAtHandle, "profileEmail" => $this->profileEmail, "profileHash" => $this->profileHash, "profileSalt" => $this->profileSalt];
+	$statement->execute($parameters);
 
-		//update the null profileId with what mySQL just gave us
-		$this->profileId = intval($pdo->lastInsertId());
+	//update the null profileId with what mySQL just gave us
+	$this->profileId = intval($pdo->lastInsertId());
 
-		//stopped here about line 368 in php profile git hub file
-	}
-
-
-
-/**
- * formats the state variables for JSON serialization
- *
- * @return array resulting state variables to serialize
- **/
-public function jsonSerialize() {
-	$fields = get_object_vars($this);
-	//format the date so that the front end can consume it
-	$fields["favoriteDate"] = round(floatval($this->favoriteDate->format("U.u"))*1000);
-		return($fields);
+	//stopped here about line 368 in php profile git hub file
 }
+
 
 
 /**
@@ -280,14 +271,24 @@ public function jsonSerialize() {
  * @throws \TypeError if $pdo is not a PDO connection object
  **/
 
-	public function insert(\PDO $pdo) : void {
-		// enforce the productId is null (i.e., don't insert the same product twice)
-		if($this->productId !== null) {
-				throw(new \PDOException("not a new product"));
-		}
+	public function insert(\PDO $pdo): void {
+	// enforce the productId is null (i.e., don't insert the same product twice)
+	if($this->productId !== null) {
+		throw(new \PDOException("not a new product"));
 	}
+}
 	//create query template
-	$query = "INSERT INTO product("
+
+
+
+/**
+ * formats the state variables for JSON serialization
+ *
+ * @return array resulting state variables to serialize
+ **/
+public function jsonSerialize() {
+	return (get_object_vars($this));
+}
 
 
 
