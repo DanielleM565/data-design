@@ -72,6 +72,7 @@ Class Profile implements \JsonSerializable {
 			throw(new $exceptionType($exception->getMessage(), ), $exception));
 		}
 
+
 		/**
 		 *
 		 */
