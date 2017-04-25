@@ -27,7 +27,6 @@ Class Profile implements \JsonSerializable {
 	 **/
 	private $profileAtHandle;
 
-
 	/**
 	 * password hash
 	 * @var string $profileHash;
