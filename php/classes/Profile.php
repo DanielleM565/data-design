@@ -217,11 +217,11 @@ public function getProfileHash(): string {
 	$newProfileSalt = trim($newProfileSalt);
 	$newProfileSalt = strtolower($newProfileSalt);
 
-	//enfore that the salt us a string representation of a hexadecimal
+	//enforce that the salt us a string representation of a hexadecimal
 	if(!ctype_xdigit($newProfileSalt)) {
 		throw(new \InvalidArgumentException("profile password hash is empty or insecure"));
 	}
-	//enforce that hte salt is exactly 64 characters
+	//enforce that the salt is exactly 64 characters
 	if(strlen($newProfileSalt) !==64){
 		throw(new \RangeException("profile salt must be 128 characters"));
 	}
@@ -244,6 +244,17 @@ public function getProfileHash(): string {
 	}
 
 	//create query template
+	$query = "Insert INTO profile (profileActivationToken, profileAtHandle, profileEmail, profileHash, profileSalt) VALUES (:profileActivationToken, :profileAtHandle, :profileEmail, :profileHash, :profileHash, :profileSalt)";
+		$statement = $pdo->prepare($query);
+
+		//bind the member variables to the place holders in the template
+	$parameters = ["profileActivationToken" => $this->profileActivationToken, "profileAtHandle" => $this->profileAtHandle, "profileEmail" => $this->profileEmail, "profileHash" => $this->profileHash, "profileSalt" =>$this->profileSalt];
+		$statement->execute($parameters);
+
+		//update the null profileId with what mySQL just gave us
+		$this->profileId = intval($pdo->lastInsertId());
+
+		//stopped here about line 368 in php profile git hub file
 	}
 
 
