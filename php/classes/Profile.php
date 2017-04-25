@@ -316,7 +316,13 @@ public function update(\PDO $pdo): void {
 		throw(new \PDOException("unable to update a profile that does not exist"));
 	}
 //create query template
-	$query = "UPDATE profile SET profileActivationToken = :profileActivationToken, profileAtHandle = :profileAtHandle,"
+	$query = "UPDATE profile SET profileActivationToken = :profileActivationToken, profileAtHandle = :profileAtHandle, profileEmail = :profileEmail, profileHash = :profileHash, profileSalt = :profileSalt";
+	$statement = $pdo->prepare($query);
+
+	//bind the member variables to the place holders in the template
+	$parameters=["profileId=>$this->profileId", "profileActivationToken" => $this->profileActivationToken, "profileAtHandle" => $this->profileAtHandle, "profileEmail" => $this->profileEmail, "profileHash" => $this->profileHash, "profileSalt" =>$this->profileSalt];
+
+		$statement->execute($parameters);
 }
 
 
