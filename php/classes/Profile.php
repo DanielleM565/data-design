@@ -26,7 +26,6 @@ Class Profile implements \JsonSerializable {
 	 * @var int $profileAtHandle aka $userId
 	 **/
 	private $profileAtHandle;
-
 	/**
 	 * password hash
 	 * @var string $profileHash;
@@ -66,21 +65,17 @@ Class Profile implements \JsonSerializable {
 			$this->setProfileSalt($newProfileSalt);
 		}
 
-			catch(\InvalidArgumentException | \RangeException | \Exception |TypeError $esception) {
+			catch(\InvalidArgumentException | \RangeException | \Exception |\TypeError $exception) {
 			//determine what exception type was thrown
 			$exceptionType = get_class($exception);
-			throw(new $exceptionType($exception->getMessage(), ), $exception));
+			throw(new $exceptionType($exception->getMessage(), 0, $exception));
 		}
-
-
-		/**
-		 *
-		 */
 
 	/**
 	 * accessor method for profile id
 	 *
 	 * @return int value of profile id
+	 * (or null if new profile)
 	 **/
 	public function getProfileId() {
 		return($this->profileId);
@@ -97,84 +92,76 @@ Class Profile implements \JsonSerializable {
 	 *
 	 * filter_var is saying leave it alone if it's an int if not say something
 	 **/
-	public function setProfileId ($newProfileId) {
-		$newProfileId = filter_var($newProfileId, FILTER_VALIDATE_INT) ;
-		if($newProfileId === false) {
-			throw(new \UnexpectedValueException("profile id is not valid integer"));
-		}
-		/**
-		 * intval will convert this to an integer and store it
-		 **/
-		// convert and store the profile id
-		$this ->profileId = intval($newProfileId);
+	public function setProfileId(?int $newProfileId): void {
+	if($newProfileId === null) {
+		$this->profileId = null;
+		return;
 	}
-
-			public function setProfileAtHandle(int $profileAtHandle) {
-	$this->profileAtHandle = $profileAtHandle;
-}
-	/**accessor method for the first name
-	 *
-	 * @return string value of first name
-	 **/
-	public function getFirstName() {
-		return($this->firstName);
+	//verify the profile id is positive
+	if($newProfleId <= 0) {
+		throw(new \RangeException("profile id is not positive"));
 	}
-	/**
-	 * matuator method for first name
-	 *
-	 * @param string $newFirstName new value of first name
-	 * @throw UnexpectedValueException if $newFirstName is not valid
-	 **/
-	public function setFirstName($newFirstName) {
-		//verify the first name is valid
-		$newFirstName = filter_var($newFirstName, FILTER_SANTIZE_STRING);
-		if($newFirstName ===false) {
-			throw(new \UnexpectedValueException("First Name is not a valid string"));
-		}}
-
-		/**
-		 *accessor method for last name
-		 *
-		 * @return string value of last name
-		 **/
-	public function getLastName() {
-	return ($this->lastName);
+	//convert and store the profile id
+	$this->profileId = $newProfileId;
 }
 
-		/**
-		 * mutator method for last name
-		 *
-		 * @param string $newLastName
-		 * @throws UnexpectedValueException if $newLastName is not valid
-		 **/
-	public function setLastName($newLastName) {
-		$newFirstName = filter_var($newFirstName, FILTER_SANITIZE_STRING);
-		if($newLastName ===false) {
-			throw(new \UnexpectedValueException("Last name is not a valid string"));
-		}
+/**
+ * mutator method for email
+ *
+ * @param string $newProfileEmail new value of email
+ * @throws \InvalidArgumentException if $newEmail is not a valid email or insecure
+ * @throws \RangeException if $newEmail is > 128 characters
+ * @throws \TypeError if $newEmail is not a string
+ **/
+public function setProfileEmail(string $newProfileEmail): void {
+	//verify the email is secure
+	$newProfileEmail = trim($newProfileEmail);
+	$newProfileEmail = filter_var($newProfileEmail, FILTER_VALIDATE_EMAIL);
+	if(empty($newProfileEmail) === true) {
+		throw(new \InvalidArgumentException("profile email is empty or insecure"));
 	}
-
-		/**
-		 * accessor method for email
-		 *
-		 * @return string value of email
-		 **/
-		public function getProfileEmail() {
-			return ($this->ProfileEmail);
-		}
-
-	/**
-	 * mutator method for email
-	 *
-	 * @param string $newProfileEmail
-	 * @throws \UnexpectedValueException if $
-	 */
-	public function setProfileEmail($newProfileEmail) {
-		$newProfileEmail = filter_var($newProfileEmail, FILTER_SANTIZE_STRING);
-		if($newProfileEmail ===false)  {
-			throw(new \UnexpectedValueException("Email invalid"));
-		}
+	//verify the email will fit in the database
+	if(strlen($newProfileEmail) > 128) {
+			throw(new \RangeException("profile email is too long"));
 	}
+	//store the email
+	$this->profileEmail = $newProfileEmail;
+}
+
+
+
+/**
+ * accessor method for at handle
+ *
+ * @return string value of at handle
+ **/
+public function getProfileAtHandle(): string {
+	return (&this->ProfileAtHandle);
+}
+/**
+ * mutator method for at handle
+ *
+ * @param string $newprofileAtHandle new value of at handle
+ * @throws \InvalidArgumentException if $newAtHandle is not a string or insecure
+ * @throws \RangeException if $newAtHandle is not a string or insecure
+ * @throws \TypeError if $newAtHandle is not a string
+ **/
+public function setProfileAtHandle(string $newProfileAtHandle) : void {
+	//verify the at handle is secure
+	$newProfileAtHandle = trim($newProfileAtHandle);
+	$newProfileAtHandle = FILTER_SANITIZE_STIRNG, FILTER_FLAG_NO_ENCODE_QUOTES);
+if(empty($newProfileAtHandle)===true) {
+		throw(new \InvalidArgumentException("profile at handle is empty or insecure"));
+}
+//verify the at handle will fit in the database
+	if(strlen($newProfileAtHandle) > 32) {
+		throw(new \RangeException("profile at handle is too large"));
+	}
+	//Store the at handle
+	$this->profileAtHandle = $newProfileAtHandle;
+}
+
+
 
 	/**
 	 * Mutator method for profile has password
