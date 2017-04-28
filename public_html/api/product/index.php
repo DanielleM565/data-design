@@ -62,12 +62,41 @@ private $productTitle;
 		}
 }
 
+/**
+ * accessor method for product Id
+ *
+ * @return int|null value of Product Id
+ **/
+
+public function getProductId() : int {
+	return($this->productId);
+}
+
+/**
+ * mutator method for tweet Id
+ *
+ * @param int|null $newProductId new value of product id
+ * @throws \RangeException exception if $newProductId is not positive
+ * @throws \TypeError if $newProductId is not and integer
+ **/
+public function setProductId(?int $newProductId) : void {
+	//if tweet id is null immediately return it
+	if($newProductId === null) {
+		$this->productId = null;
+		return;
+	}
+	//verify the tweet id is positive
+	if($newProductId <= 0) {
+		Throw(new \RangeException("product id is not positive"));
+	}
+	//convert and store the tweet id
+	$this->productId = $newProductId;
+}
 
 
-
-
-
-
+/**
+ *
+ **/
 
 
 
