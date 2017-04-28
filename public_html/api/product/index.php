@@ -56,7 +56,7 @@ private $productTitle;
 				$this->setProductTitle($newProductTitle);
 		}
 		//determine what exception type was thrown
-		catch(\InvalidArgumentException | \RangeEsception | \Exception |\TypeError $exception) {
+		catch(\InvalidArgumentException | \RangeException | \Exception |\TypeError $exception) {
 			$exceptionType = get_class($exception);
 			throw(new $exceptionType($exception->getMessage(), 0, $exception));
 		}
@@ -95,11 +95,32 @@ public function setProductId(?int $newProductId) : void {
 
 
 /**
+ * accessor method for product profile id
  *
+ * @return int value of product profile id
  **/
+	/**
+	 * @return int
+	 */
+	public function getProductProfileId(): int {
+		return $this->productProfileId;
+	}
 
-
-
+/**
+ * mutator method for product id
+ *
+ * @param int $newProductProfileId new value of product profile id
+ * @throws \RangeException if $newProfileId is not positive
+ * @throws \TypeError if $ newProductId is not an integer
+ **/
+public function setProductProfileId(int $newProductProfileId) : void {
+	//verify the profile id is positive
+	if($newProductProfileId <= 0) {
+		throw(new \RangeException("product profile id is not positive"));
+	}
+	//convert and store the profile id
+	$this->productProfileId = $newProductProfileId;
+}
 
 
 }
