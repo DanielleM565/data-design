@@ -122,6 +122,46 @@ public function setProductProfileId(int $newProductProfileId) : void {
 	$this->productProfileId = $newProductProfileId;
 }
 
+/**
+ * accessor method for product description
+ *
+ * @return string value of product description
+ **/
+	/**
+	 * @return string
+	 */
+	public function getProductDescription(): string {
+		return $this->productDescription;
+	}
+
+/**
+ * mutator method for product description
+ *
+ * @param string $newProductDescription new value of product description
+ * @throws \InvalidArgumentException if $newProductDescription is not a string or insecure
+ * @throws \RangeException if $newProductDescription is > 520 characters
+ * @throws \TypeError if $newProductContent is not a string
+ **/
+	/**
+	 * @param string $productDescription
+	 */
+	public function setProductDescription(string $productDescription) : void {
+		//verify the product description is secure
+		$newProductDescription = trim($newProductDescription);
+		$newProductDescription = filter_var($newProductDescritpion, FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
+		if(empty($newProductDescription) === true) {
+			throw(new \InvalidArgumentException("product content is empty or insecure"));
+		}
+
+		//verify the product description will fin in the database
+		if(strlen($newProductDescription) > 520) {
+			throw(new \RangeException("Product Description too long, please shorten"));
+		}
+		//store the product description
+		$this->productDescription = $productDescription;
+	}
+
+
 
 }
 ?>
