@@ -48,7 +48,7 @@ private $productTitle;
  * @param  string $newProductTitle string with the title of the product
 **/
 
-	public function __construct(?int $newProdutId, int $newProductProfileId, string $newProductDescription, string $newProductTitle) {
+	public function __construct(?int $newProductId, int $newProductProfileId, string $newProductDescription, string $newProductTitle) {
 		try{
 				$this->setProductId($newProductId);
 				$this->setProductProfileId($newProductProfileId);
