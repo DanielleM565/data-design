@@ -131,7 +131,7 @@ public function setProductProfileId(int $newProductProfileId) : void {
 	 * @return string
 	 */
 	public function getProductDescription(): string {
-		return $this->productDescription;
+		return ($this->productDescription);
 	}
 
 /**
@@ -140,15 +140,14 @@ public function setProductProfileId(int $newProductProfileId) : void {
  * @param string $newProductDescription new value of product description
  * @throws \InvalidArgumentException if $newProductDescription is not a string or insecure
  * @throws \RangeException if $newProductDescription is > 520 characters
- * @throws \TypeError if $newProductContent is not a string
+ * @throws \TypeError if $newProductDescription is not a string
  **/
-	/**
-	 * @param string $productDescription
-	 */
-	public function setProductDescription(string $productDescription) : void {
-		//verify the product description is secure
+
+	public function setProductDescription(string $newProductDescription) : void {
+		//verify the product description is secure//
+
 		$newProductDescription = trim($newProductDescription);
-		$newProductDescription = filter_var($newProductDescritpion, FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
+		$newProductDescription = filter_var($newProductDescription, FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
 		if(empty($newProductDescription) === true) {
 			throw(new \InvalidArgumentException("product content is empty or insecure"));
 		}
@@ -158,8 +157,49 @@ public function setProductProfileId(int $newProductProfileId) : void {
 			throw(new \RangeException("Product Description too long, please shorten"));
 		}
 		//store the product description
-		$this->productDescription = $productDescription;
+		$this->productDescription = $newProductDescription;
 	}
+	/**
+	 * accessor method for Product Title
+	 *
+	 * @return string value of productTitle
+	 **/
+
+	public function getProductTitle(): string {
+		return $this->productTitle;
+	}
+
+	/**
+	 * mutator method for Product Title
+	 *
+	 * @param string $newProductTitle new value of product title
+	 * @throws \InvalidArgumentException if $newProductTitle is not a string or insecure
+	 * @throws \RangeException if $newProductTitle is > 128 characters
+	 * @throws \TypeError if $newProductTitle is not a string
+	 **/
+
+	public function setProductTitle(string $newProductTitle) : void {
+		//verify product title is secure
+		$newProductTitle = trim($newProductTitle);
+		$newProductTitle = filter_var($newProductTitle, FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
+		if(empty($newProductTitle) === true) {
+			throw(new \InvalidArgumentException("Product Title is empty or insecure"));
+		}
+		//verify the Product Title will fit into the database
+		if(strlen($newProductTitle) > 128) {
+			throw(new \RangeException("Product Title is too long"));
+		}
+		// store the Product Title
+		$this->productTitle = $newProductTitle;
+	}
+
+
+
+
+
+
+
+
 
 
 
