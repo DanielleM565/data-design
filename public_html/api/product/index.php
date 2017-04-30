@@ -192,9 +192,34 @@ public function setProductProfileId(int $newProductProfileId) : void {
 		// store the Product Title
 		$this->productTitle = $newProductTitle;
 	}
+/**
+ * inserts this product into mySQL
+ *
+ * @param \PDO $pdo PDO connection object
+ * @throws \PDOException when mySQL related errors occur
+ * @throws \TypeError if $pdo is not a PDO connection object
+ **/
+public function insert(\PDO $pdo) : void {
+	//enforce the productId is null (i.e., don't insert a tweet that already exists)
+	if($this->productId !== null) {
+		throw(new \PDOException("not a new Product"));
+	}
+	//create query template
+	$query = "INSERT INTO product(productProfileId, productDescription, productTitle) VALUES(:productProfileId, :productDescription, :productTitle)";
+	$statement = $pdo->prepare($query);
 
+	//bind the member variables to the place holders in the template
+	$parameters = ["productProfileId" => $this->productProfileId, "productDescription" => $this->productDescription, "productTitle" => $this->productTitle,];
+	$statement->execute($parameters);
 
+	//update the null productId with what mySQL just gave us
+	$this->productId = intval($pdo->lastInsertId());
 
+}
+
+/**
+ * deletes this product from mySQL
+ **/
 
 
 
