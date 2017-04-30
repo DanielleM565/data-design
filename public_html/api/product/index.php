@@ -219,8 +219,39 @@ public function insert(\PDO $pdo) : void {
 
 /**
  * deletes this product from mySQL
+ *
+ * @param \PDO $pdo PDO connection object
+ * @throws \PDOException when mySQL related errors occur
+ * @throws \TypeError if $pdo is not a PDO connection object
  **/
+public function delete(\PDO $pdo) : void {
+	//enforce the productId is not null (i.e., don't delete a product that was never inserted to being with)
+	if($this->productId === null) {
+		throw(new \PDOException("unable to delete a product that does not exist"));
+	}
+	//create query template
+	$query = "DELETE FROM product WHERE productId = :productId";
+	$statement = $pdo->prepare($query);
 
+	//bind the member variables to the place holder in the template
+	$parameters = ["productId" => $this->productId];
+	$statement->execute($parameters);
+
+	//build an array of products
+	$products = new \SplFixedArray($statement->rowCount());
+	$statement->setFetchMode(\PDO::FETCH_ASSOC);
+	while(($row = $statement->fetch()) !== false) {
+		try {
+			$product = new Product($row["productId"], $row["productProfileId"], $row["productDescription"], $row["productTitle"]);
+			$products[$products->key()] = $product;
+			$products->next();
+		} catch(\Exception $exception) {
+			// if the row couldn't be converted, rethrow it
+			throw(new \PDOException($exception->getMessage(), 0, $exception));
+		}
+	}
+	return($products);
+}
 
 
 
