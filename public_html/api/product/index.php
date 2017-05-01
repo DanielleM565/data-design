@@ -343,5 +343,6 @@ public static function getProductByProductId(\PDO $pdo, int $productId) : ?Produ
 
 
 
+
 }
 ?>
