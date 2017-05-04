@@ -340,7 +340,7 @@ public static function getProductByProductId(\PDO $pdo, int $productId) : ?Produ
 	return($product);
 }
 
-//stopped at line 352 getproductbeyproductid static function is next
+//stopped at line 352 getproductbeyproductid  static function is next
 
 
 
