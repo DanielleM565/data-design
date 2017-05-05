@@ -56,7 +56,7 @@ private $productTitle;
 				$this->setProductTitle($newProductTitle);
 		}
 		//determine what exception type was thrown
-		catch(\InvalidArgumentException | \RangeException | \Exception |\TypeError $exception) {
+		catch(\InvalidArgumentException | \RangeException | \Exception | \TypeError $exception) {
 			$exceptionType = get_class($exception);
 			throw(new $exceptionType($exception->getMessage(), 0, $exception));
 		}
@@ -325,7 +325,7 @@ public static function getProductByProductId(\PDO $pdo, int $productId) : ?Produ
 	$parameters = ["productId" => $productId];
 	$statement->execute($parameters);
 
-	//grab the tweet from mySQL
+	//grab the product from mySQL
 	try {
 		$product = null;
 		$statement->setFetchMode(\PDO::FETCH_ASSOC);
@@ -339,9 +339,30 @@ public static function getProductByProductId(\PDO $pdo, int $productId) : ?Produ
 		}
 	return($product);
 }
+/**
+ * gets an array of products based on its Title or description
+ *
+ * I'm not sure how to do this the example is for getting product by date
+ **/
 
-//stopped at line 352 getproductbeyproductid  static function is next
+/**
+ * gets all products
+ *
+ * @param \PDO $pdo PDO connection object
+ * @return \SplFixedArray SplFixedArray of products found or null if not found
+ * @throws \PDOException when mySQL related errors occur
+ * @throws \TypeError when variables are not the correct data type
+ **/
+public static function getAllProducts(\PDO $pdo) :\SplFixedArray {
+	//create query template
+	$query = "SELECT productId, productProfileId, productDescription, productTitle FROM product";
 
+}
+
+
+/**
+ * I need to find the source of the error with productProfileId
+ **/
 
 
 }
