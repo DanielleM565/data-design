@@ -58,7 +58,7 @@ class Favorite implements \JsonSerializable {
 	 * @return int value of profile id
 	 **/
 
-	public function getFavoriteProfileId() : int {
+	public function getFavoriteProfileId(): int {
 		return ($this->favoriteProfileId);
 	}
 
@@ -73,10 +73,10 @@ class Favorite implements \JsonSerializable {
 	/**
 	 * @return mixed
 	 */
-	public function setFavoriteProfileId(int $newProfileId) : void {
+	public function setFavoriteProfileId(int $newProfileId): void {
 		//verify the profile id is positive
 		if($newProfileId <= 0) {
-				throw(new \RangeException("profile id is not possible, like do you even exist?"));
+			throw(new \RangeException("profile id is not possible, like do you even exist?"));
 		}
 		// convert and store the profile id
 		$this->favoriteProfileId = $newProfileId;
@@ -89,21 +89,17 @@ class Favorite implements \JsonSerializable {
 	 * @return int value of product id
 	 **/
 
-	public function getFavoriteProductId() : int {
+	public function getFavoriteProductId(): int {
 		return ($this->favoriteProductId);
 	}
 	/**
 	 *mutator method for product Id
 	 *
-	 *@param int $newFavoriteProductId new value of product id
-	 *@throws \RangeException
-	 *@throws \TypeError if $newFavoriteProductId is not an integer
+	 * @param int $newFavoriteProductId new value of product id
+	 * @throws \RangeException
+	 * @throws \TypeError if $newFavoriteProductId is not an integer
 	 **/
-
-	/**
-	 * @param int $favoriteProductId
-	 */
-	public function setFavoriteProductId(int $newFavoriteProductId) : void {
+	public function setFavoriteProductId(int $newFavoriteProductId): void {
 		//verify the product id is positive
 		if($newFavoriteProductId <= 0) {
 			throw(new \RangeException("product id is not positive"));
@@ -120,7 +116,7 @@ class Favorite implements \JsonSerializable {
 	 * @throws \TypeError if $pdo is not a PDO connection object
 	 **/
 
-	public function insert(\PDO $pdo) : void {
+	public function insert(\PDO $pdo): void {
 		//ensure the object exists before inserting no empty data in sql!
 		if($this->favoriteProfileId === null || $this->favoriteProductId === null) {
 			throw(new \PDOException("not a valid favorite"));
@@ -131,12 +127,54 @@ class Favorite implements \JsonSerializable {
 
 		//bind the member variables to the place holders in the template
 		$parameters = ["favoriteProfileId" => $this->favoriteProfileId, "favoriteProductId" => $this->favoriteProductId];
-			$statement->execute($parameters);
+		$statement->execute($parameters);
 	}
 
+
+
+
 	/**
-	 * stopped at like 173 oub function delete
+	 *gets the Like by product id and profile id
+	 *
+	 *@param \PDO $pdo PDO connection object
+	 *@throws  \PDOException when mySQL related errors occur
+	 *@throws \TypeError if $pdo is not a PDO connection object
 	 **/
+public function delete(\PDO $pdo) : void {
+	//ensure the object exists before deleting
+	if($this->favoriteProductId === null || $this->favoriteProductId === null) {
+		throw(new \PDOException("not a valid favorite"));
+	}
+//create query template
+	$query = "DELETE FROM 'favorite' WHERE favoriteProfileId = :favoriteProfileId AND favoriteProductId = :favoriteProductId";
+	$statement = $pdo->prepare($query);
+
+	//bind the member variables to the place holders in the template
+	$parameters = ["favoriteProfileId" => $this->favoriteProfileId, "favorite" => $this->favoriteProfileId];
+	$statement->execute($parameters);
+}
+
+
+	/**
+	 * gets the Favorite by Product id and profile id
+	 *
+	 * @param \PDO $pdo PDO connection object
+	 * @param int $favoriteProfileId profile id to search for
+	 * @param int $favoriteProductId product id to search for
+	 * @return Product|null Favorite found or null if not found
+	 **/
+public static function getFavoriteByFavoriteProductIdAndFavoriteProfileId(\PDO $pdo, int $favoriteProfileId, int$)
+
+
+
+
+
+
+
+
+
+
+
 
 
 
