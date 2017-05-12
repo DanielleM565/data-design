@@ -20,13 +20,14 @@ CREATE TABLE product (
 
 	productId INT UNSIGNED AUTO_INCREMENT NOT NULL,
 	-- productContent I plan for this to be a picture --/
+	productProfileId INT UNSIGNED NOT NULL,
 	productDescription VARCHAR (520) NOT NULL,
 	-- similar to tweet content in example --/
 	productTitle VARCHAR(128) NOT NULL,
 	-- productPrice, not sure how to do a price --/
 	-- needs to be a INT and CHAR(8) or something for price not null --/
 	INDEX (productId),
-	FOREIGN KEY(productId) REFERENCES profile(profileId),
+	FOREIGN KEY(productProfileId) REFERENCES profile(profileId),
 	PRIMARY KEY(productId));
 
 
